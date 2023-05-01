@@ -54,4 +54,9 @@ public class LabelBl {
         }
         labels.add(label);
     }
+
+    public void deleteLabelById(Integer id) {
+        this.labels.removeIf(label -> label.getLabelId().equals(id));
+    }
+    
 }

@@ -130,4 +130,38 @@ public class LabelApi {
         response.setResponse("Label created");
         return response;
     }
+
+    /**
+ * Este método elimina una etiqueta por ID
+ * @param id La llave primaria de la etiqueta
+ * @param token El token de autenticación
+ * @return
+ */
+@DeleteMapping("/api/v1/label/{idLabel}")
+public ResponseDto<String> deleteLabelById(@PathVariable("idLabel") Integer id, @RequestHeader("Authorization") String token){
+    ResponseDto<String> response = new ResponseDto<>();
+    AuthBl authBl = new AuthBl();
+    if (!authBl.validateToken(token)) {
+        response.setCode("0001");
+        response.setResponse(null);
+        response.setErrorMessage("Invalid token");
+        return response;
+    }
+    // Buscamos el elemento en la lista
+    LabelDto label = this.labelBl.getLabelById(id);
+    // Si no existe retornamos un error
+    if(label == null){
+        response.setCode("0001");
+        response.setResponse(null);
+        response.setErrorMessage("Label not found");
+        return response;
+    } else {
+        // Si existe, eliminamos la etiqueta de la lista
+        this.labelBl.deleteLabelById(id);
+        response.setCode("0000");
+        response.setResponse("Label deleted");
+        return response;
+    }
+}
+
 }

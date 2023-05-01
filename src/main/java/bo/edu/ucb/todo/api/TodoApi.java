@@ -103,6 +103,7 @@ class TodoApi {
             task.setDescription(newTask.getDescription());
             task.setDate(newTask.getDate());
             task.setLabelIds(newTask.getLabelIds());
+            task.setEstado(newTask.getEstado());
             // Si existe retornamos el elemento
             response.setCode("0000");
             response.setResponse(task);
